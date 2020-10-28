@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Classes - Meetings Listner</title>
+    <link href="bootstrap.min.css"  rel="stylesheet"/>
+    <style>
+        body{
+            min-width: 500px;
+        }
+        .head{
+            background-color: #007bff;
+            color: rgb(255, 255, 255);
+            font-size: 30px;
+            text-align: center;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        .subhead{
+            font-size: 15px;
+        }
+        .success{
+            display: none;
+        }
+    </style>
+    <script src="jquery-3.5.1.js"></script>
+</head>
+<body>
+    <div class="head">
+        N-Listener <br>
+        <div class="subhead">Listen - Summarise - Report</div>
+    </div>
+    <div class="container first">
+        <div class="info">
+            <ul>
+                <li>Enter your email ID to get the report</li>
+                <li>Press the start/stop button to activate the bot</li>
+                <li>You'll get the summary of the whole recording on your given email address after the recording ends</li>
+            </ul>
+        </div>
+    <form autocomplete="on" id="myForm">
+        <div class="form-row">
+            <div class="col input-group">
+                <div class="input-group-append">
+                    <span class="input-group-text">Your email ID</span>
+                </div>
+                <input type="text" class="form-control betaEmail" name="betaEmail" placeholder="Email id to receive report" required>
+            </div>
+        </div><br>
+    </form>
+    <button type="button" class="btn btn-primary btn-lg btn-block m-10 update">
+        Update
+    </button><br>
+    </div>
+    <div class="container success">
+        <div class="alert alert-success" role="alert">
+            Update Successful
+      </div>
+      <div class="alert alert-primary" role="alert">
+        You'll get a summary report over your email after you end a recording
+      </div>
+    </div>
+
+    <h6 style="text-align: end;font-size: small;"><a href="mailto:nithin.s491@gmail.com" target="_blank">Report bugs here</a></h6>
+</body>
+<script src="popup.js"></script>
+</html>
