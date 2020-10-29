@@ -1,14 +1,14 @@
 {
     "manifest_version": 2,
-    "name": "Classes - Meetings Listner",
-    "version": "1.0.0",
-    "description": "Class/Meetings Listener | Report generator - By Nithin S",
+    "name": "Notes taker for Online classes",
+    "version": "1.0.2",
+    "description": "Class/Meetings Listener | Notes generator - By Nithin S",
     "icons": {
       "128": "icon.png"
     },
     "browser_action": {
       "default_icon":"icon.png",
-      "default_title": "Classes - Meetings Listner",
+      "default_title": "N-Notes",
       "default_popup": "popup.html"
     },
     "content_scripts": [{

@@ -39,9 +39,15 @@ recognition.onerror = function(event) {
 document.addEventListener("recStart",()=>{
     fd = new Date();
     recognition.start();
-    endState=false;
+	endState=false;
+	buttonn.innerHTML = "Stop"
+	buttonn.style.backgroundColor = "#f92f2f"
+	document.querySelector('.pause').style.display = "block";
 })
 document.addEventListener("recEnd",()=>{
+	buttonn.innerHTML = "Start"
+	buttonn.style.backgroundColor = "#007bff"
+	document.querySelector('.pause').style.display = "none";
     if(totalSummary){
         console.log(totalSummary.substr(0,9))
         if(totalSummary.substr(0,9)=="undefined"){
@@ -70,24 +76,47 @@ document.addEventListener("recEnd",()=>{
         xhr.open("POST", "https://nithins.me/nbot/summaryBot/mail.php");
     
         xhr.send(data);
-    }
+	}
+	else{
+		endState=true;
+		recognition.stop()
+		totalSummary="";
+	}
 })
 
 var buttonn = document.createElement('div')
 buttonn.setAttribute("class","startstop")
-buttonn.style.cssText = "z-index: 8000000000; position: fixed; bottom: 2%; right: 2%; background-color: #007bff; padding: 7px 15px; border-radius:7px; color: white; font-size: 30px"
+buttonn.style.cssText = "z-index: 8000000000; position: fixed; bottom: 2%; right: 2%; background-color: #007bff; padding: 7px 15px; border-radius:7px; color: white; font-size: 30px;"
 buttonn.innerHTML = "Start"
 document.body.appendChild(buttonn);
+
+var buttonnn = document.createElement('div')
+buttonnn.setAttribute("class","pause")
+buttonnn.style.cssText = "z-index: 8000000001; position: fixed; bottom: 2%; right: 10%; background-color: #007bff; padding: 7px 15px; border-radius:7px; color: white; font-size: 30px;"
+buttonnn.innerHTML = "Pause"
+buttonnn.style.display="none";
+document.body.appendChild(buttonnn);
 
 document.querySelector(".startstop").addEventListener("click",()=>{
     if(buttonn.innerHTML == "Start"){
         document.dispatchEvent(recStart)
-        buttonn.innerHTML = "Stop"
-        buttonn.style.backgroundColor = "#f92f2f"
     }
     else{
         document.dispatchEvent(recEnd)
-        buttonn.innerHTML = "Start"
-        buttonn.style.backgroundColor = "#007bff"
+    }
+})
+
+document.querySelector(".pause").addEventListener("click",()=>{
+    if(buttonnn.innerHTML == "Pause"){
+		endState=true;
+		recognition.stop()
+        buttonnn.innerHTML = "Play"
+        buttonnn.style.backgroundColor = "#f92f2f"
+    }
+    else{
+		endState=false;
+		recognition.start();
+        buttonnn.innerHTML = "Pause"
+        buttonnn.style.backgroundColor = "#007bff"
     }
 })

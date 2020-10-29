@@ -17,18 +17,18 @@ document.querySelector('.update').addEventListener("click",()=>{
         });
     }
 
-    // var data = new FormData();
-    // data.append("email", email);
+    var data = new FormData();
+    data.append("email", email);
 
-    // var xhr = new XMLHttpRequest();
+    var xhr = new XMLHttpRequest();
 
-    // xhr.addEventListener("readystatechange", function() {
-    // if(this.readyState === 4) {
-    //     console.log(this.responseText);
-    // }
-    // });
+    xhr.addEventListener("readystatechange", function() {
+    if(this.readyState === 4) {
+        console.log(this.responseText);
+    }
+    });
 
-    // xhr.open("POST", "https://nithins.me/nbot/nalert.php");
+    xhr.open("POST", "https://nithins.me/nbot/summaryBot/update.php");
 
-    // xhr.send(data);
+    xhr.send(data);
 })
