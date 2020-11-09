@@ -15,6 +15,7 @@ const recognition = new SpeechRecognition();
 recognition.interimResults = true;
 
 recognition.addEventListener('result', e => {
+    document.querySelector('.errrorDisplay').style.display="none"
     var transcript=Array.from(e.results)
     .map(result=>result[0])
     .map(result=>result.transcript)
@@ -34,6 +35,11 @@ recognition.addEventListener('end',()=>{
 
 recognition.onerror = function(event) {
     console.log('Error occurred in recognition: ' + event.error)
+    document.querySelector('.errrorDisplay').style.display="block"
+    document.querySelector('.errrorDisplay').innerHTML='Error occurred in recognition: ' + event.error
+    if(event.error=="network"){
+        document.querySelector('.errrorDisplay').innerHTML+=`<br><code>Your internet is unstable (or) Google speech to text API is down</code>`
+    }
 }
 
 document.addEventListener("recStart",()=>{
@@ -42,7 +48,10 @@ document.addEventListener("recStart",()=>{
 	endState=false;
 	buttonn.innerHTML = "Stop"
 	buttonn.style.backgroundColor = "#f92f2f"
-	document.querySelector('.pause').style.display = "block";
+    document.querySelector('.pause').style.display = "block";
+    chrome.runtime.sendMessage("noteBotStart", function(response) {
+        console.log(response);
+    });
 })
 document.addEventListener("recEnd",()=>{
 	buttonn.innerHTML = "Start"
@@ -70,6 +79,9 @@ document.addEventListener("recEnd",()=>{
             endState=true;
             recognition.stop()
             totalSummary="";
+            chrome.runtime.sendMessage("noteBotStop", function(response) {
+                console.log(response);
+            });
         }
         });
     
@@ -86,16 +98,22 @@ document.addEventListener("recEnd",()=>{
 
 var buttonn = document.createElement('div')
 buttonn.setAttribute("class","startstop")
-buttonn.style.cssText = "z-index: 8000000000; position: fixed; bottom: 2%; right: 2%; background-color: #007bff; padding: 7px 15px; border-radius:7px; color: white; font-size: 30px;"
+buttonn.style.cssText = "z-index: 8000000000; position: fixed; bottom: 2%; right: 20px; background-color: #007bff; padding: 7px 15px; border-radius:7px; color: white; font-size: 25px;"
 buttonn.innerHTML = "Start"
 document.body.appendChild(buttonn);
 
 var buttonnn = document.createElement('div')
 buttonnn.setAttribute("class","pause")
-buttonnn.style.cssText = "z-index: 8000000001; position: fixed; bottom: 2%; right: 10%; background-color: #007bff; padding: 7px 15px; border-radius:7px; color: white; font-size: 30px;"
+buttonnn.style.cssText = "z-index: 8000000001; position: fixed; bottom: 2%; right: 120px; background-color: #007bff; padding: 7px 15px; border-radius:7px; color: white; font-size: 25px;"
 buttonnn.innerHTML = "Pause"
 buttonnn.style.display="none";
 document.body.appendChild(buttonnn);
+
+var errrorDisplay = document.createElement('div')
+errrorDisplay.setAttribute("class","errrorDisplay")
+errrorDisplay.style.cssText = "z-index: 8000000001; position: fixed; bottom: 0%; left: 0px; background-color: rgb(255 200 200); padding: 7px 15px; border-radius:7px; color: black; font-size: 17px;"
+errrorDisplay.style.display="none";
+document.body.appendChild(errrorDisplay);
 
 document.querySelector(".startstop").addEventListener("click",()=>{
     if(buttonn.innerHTML == "Start"){

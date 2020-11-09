@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
-    "name": "Notes taker for Online classes",
-    "version": "1.0.2",
+    "name": "Auto-Notes taker for Online classes",
+    "version": "1.1.0",
     "description": "Class/Meetings Listener | Notes generator - By Nithin S",
     "icons": {
       "128": "icon.png"
@@ -15,9 +15,14 @@
       "matches": ["https://teams.microsoft.com/*","https://meet.google.com/*","https://*.zoom.us/*"],
       "js": ["jquery-3.5.1.js","contentscriptnithSummary.js"]
     }],
+    "background": {
+      "scripts": ["background.js"],
+      "persistent": false
+    },
     "permissions": [
       "storage",
-      "activeTab"
+      "activeTab",
+      "notifications"
     ]
   }
   
