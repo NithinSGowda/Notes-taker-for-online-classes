@@ -1,7 +1,9 @@
 {
+"update_url": "https://clients2.google.com/service/update2/crx",
+
     "manifest_version": 2,
     "name": "Auto-Notes taker for Online classes",
-    "version": "1.1.0",
+    "version": "1.2.1",
     "description": "Class/Meetings Listener | Notes generator - By Nithin S",
     "icons": {
       "128": "icon.png"
@@ -21,7 +23,6 @@
     },
     "permissions": [
       "storage",
-      "activeTab",
       "notifications"
     ]
   }

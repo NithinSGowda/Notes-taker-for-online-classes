@@ -15,7 +15,6 @@ const recognition = new SpeechRecognition();
 recognition.interimResults = true;
 
 recognition.addEventListener('result', e => {
-    document.querySelector('.errrorDisplay').style.display="none"
     var transcript=Array.from(e.results)
     .map(result=>result[0])
     .map(result=>result.transcript)
@@ -35,11 +34,6 @@ recognition.addEventListener('end',()=>{
 
 recognition.onerror = function(event) {
     console.log('Error occurred in recognition: ' + event.error)
-    document.querySelector('.errrorDisplay').style.display="block"
-    document.querySelector('.errrorDisplay').innerHTML='Error occurred in recognition: ' + event.error
-    if(event.error=="network"){
-        document.querySelector('.errrorDisplay').innerHTML+=`<br><code>Your internet is unstable (or) Google speech to text API is down</code>`
-    }
 }
 
 document.addEventListener("recStart",()=>{
@@ -108,12 +102,6 @@ buttonnn.style.cssText = "z-index: 8000000001; position: fixed; bottom: 2%; righ
 buttonnn.innerHTML = "Pause"
 buttonnn.style.display="none";
 document.body.appendChild(buttonnn);
-
-var errrorDisplay = document.createElement('div')
-errrorDisplay.setAttribute("class","errrorDisplay")
-errrorDisplay.style.cssText = "z-index: 8000000001; position: fixed; bottom: 0%; left: 0px; background-color: rgb(255 200 200); padding: 7px 15px; border-radius:7px; color: black; font-size: 17px;"
-errrorDisplay.style.display="none";
-document.body.appendChild(errrorDisplay);
 
 document.querySelector(".startstop").addEventListener("click",()=>{
     if(buttonn.innerHTML == "Start"){
